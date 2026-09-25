@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* The whole experience is a night scene — enable class-based dark mode
+   so shadcn components (cursor-card) use their dark palette. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}

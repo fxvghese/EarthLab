@@ -8,7 +8,6 @@ import { smoothstep, SDG_SECTION_START } from '../journey/sections'
  */
 export function IntroContent() {
   const [opacity, setOpacity] = useState(1)
-  const [hasScrolled, setHasScrolled] = useState(false)
 
   useEffect(() => {
     let raf = 0
@@ -20,7 +19,6 @@ export function IntroContent() {
       const t = Math.min(1, Math.max(0, window.scrollY / max))
       // Fade the title through the first section.
       setOpacity(1 - smoothstep(0.02, SDG_SECTION_START * 0.85, t))
-      if (t > 0.015) setHasScrolled(true)
     }
 
     const onScroll = (): void => {
@@ -51,14 +49,6 @@ export function IntroContent() {
           Explore our planet. Understand the problems. Make better choices.
         </p>
       </div>
-      {!hasScrolled && (
-        <div className="scroll-hint" aria-hidden="true">
-          <span className="scroll-hint-label">Scroll to begin the journey</span>
-          <span className="scroll-hint-mouse">
-            <span className="scroll-hint-wheel" />
-          </span>
-        </div>
-      )}
     </section>
   )
 }

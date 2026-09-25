@@ -63,13 +63,6 @@ export default function App() {
 
         <section className="track-finale" aria-label="The ecosystem finale">
           <h2 className="sr-only">Earth is our classroom — the journey continues</h2>
-          <button
-            type="button"
-            className="finale-replay"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          >
-            Replay the journey
-          </button>
         </section>
       </main>
     </ExperienceProvider>

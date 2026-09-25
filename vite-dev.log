@@ -3,7 +3,24 @@
 > vite
 
 
-  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m392[22m[2m[0m ms[22m
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m349[22m[2m[0m ms[22m
 
   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
-  [32m➜[39m  [1mNetwork[22m: [36mhttp://10.61.176.179:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://10.61.176.254:[1m5173[22m/[39m
+[2m9:03:15 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/tailwind.css, /src/components/EcosystemScene.tsx[22m
+[2m9:04:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
+[2m9:05:35 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/tailwind.css, /src/components/EcosystemScene.tsx[22m
+[2m9:05:35 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
+[2m9:10:17 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
+[2m9:24:18 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
+[2m9:33:17 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/journey.css, /src/styles/tailwind.css[22m
+[2m9:45:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/tailwind.css[22m
+[2m9:45:08 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m9:54:27 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
+[2m10:08:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtsconfig.app.tsbuildinfo[22m
+[2m10:08:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtsconfig.node.tsbuildinfo[22m
+[2m10:17:36 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
+[2m10:18:41 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/tailwind.css, /src/components/EcosystemScene.tsx[22m
+[2m10:18:41 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/journey.css, /src/styles/tailwind.css[22m
+[2m10:20:16 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtsconfig.app.tsbuildinfo[22m
+[2m10:20:17 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtsconfig.node.tsbuildinfo[22m
