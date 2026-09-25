@@ -1,0 +1,555 @@
+/* ==================================================================
+   Journey layers
+   Fixed scene (z0) → ecosystem finale (z1) → overlay UI (z2) →
+   invisible scroll track (z3, pointer-events none).
+   ================================================================== */
+
+.scene-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--bg);
+}
+
+.earth-experience {
+  position: absolute;
+  inset: 0;
+}
+
+.scene-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.fallback-wrap {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------
+   Overlay layer
+   ------------------------------------------------------------------ */
+
+.overlay-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------
+   Intro title
+   ------------------------------------------------------------------ */
+
+.intro-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  will-change: opacity;
+}
+
+.intro-inner {
+  max-width: 860px;
+  padding: 0 24px;
+  transform: translateY(-4vh);
+}
+
+.intro-kicker {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--focus);
+  margin: 0 0 22px;
+  animation: rise-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) both 0.35s;
+}
+
+.intro-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(42px, 7.5vw, 92px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0 0 22px;
+  color: var(--ink);
+  text-shadow: 0 0 60px rgba(70, 140, 255, 0.25);
+  animation: rise-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) both 0.5s;
+}
+
+.intro-title-accent {
+  background: linear-gradient(120deg, #7ab8ff 0%, #4de0c4 55%, #9be07a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.intro-subtitle {
+  font-size: clamp(15px, 1.7vw, 19px);
+  font-weight: 300;
+  color: var(--ink-dim);
+  letter-spacing: 0.01em;
+  margin: 0;
+  animation: rise-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) both 0.68s;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Scroll hint
+   ------------------------------------------------------------------ */
+
+.scroll-hint {
+  position: absolute;
+  bottom: 4.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: fade-in 1.2s ease both 1.6s;
+}
+
+.scroll-hint-label {
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.scroll-hint-mouse {
+  width: 21px;
+  height: 33px;
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.scroll-hint-wheel {
+  width: 3px;
+  height: 7px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.65);
+  animation: wheel-drift 1.8s ease-in-out infinite;
+}
+
+@keyframes wheel-drift {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  55% { transform: translateY(8px); opacity: 0.25; }
+  70% { transform: translateY(8px); opacity: 0; }
+  85% { transform: translateY(0); opacity: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ------------------------------------------------------------------
+   SDG panels
+   ------------------------------------------------------------------ */
+
+.sdg-panel {
+  position: absolute;
+  top: 50%;
+  width: min(400px, 36vw);
+  pointer-events: none;
+}
+
+.sdg-panel--left {
+  left: clamp(24px, 7vw, 120px);
+}
+
+.sdg-panel--right {
+  right: clamp(24px, 7vw, 120px);
+}
+
+.sdg-panel-inner {
+  pointer-events: auto;
+  position: relative;
+  padding: 22px 26px 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+  animation: panel-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.sdg-panel.is-leaving .sdg-panel-inner {
+  animation: panel-out 0.45s ease both;
+  pointer-events: none;
+}
+
+.sdg-panel--left .sdg-panel-inner {
+  animation-name: panel-in-left;
+}
+
+.sdg-panel--right .sdg-panel-inner {
+  animation-name: panel-in-right;
+}
+
+@keyframes panel-in-left {
+  from { opacity: 0; transform: translateX(-34px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes panel-in-right {
+  from { opacity: 0; transform: translateX(34px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes panel-out {
+  to { opacity: 0; transform: translateY(-14px); }
+}
+
+.sdg-panel-numeral {
+  position: absolute;
+  top: -14px;
+  right: 14px;
+  font-family: var(--font-display);
+  font-size: 88px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.16;
+  user-select: none;
+}
+
+.sdg-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.sdg-panel-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.sdg-panel-name {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.9vw, 24px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+
+.sdg-panel-desc {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--ink-dim);
+  max-width: 34ch;
+}
+
+.sdg-panel-rule {
+  height: 2px;
+  margin-top: 16px;
+  border-radius: 2px;
+  opacity: 0.75;
+}
+
+.sdg-panel--right .sdg-panel-rule {
+  background: linear-gradient(270deg, var(--rule-color, #2d7ff9), transparent) !important;
+}
+
+/* ------------------------------------------------------------------
+   Progress rail
+   ------------------------------------------------------------------ */
+
+.sdg-progress {
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sdg-progress-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px 8px;
+  border-radius: 12px;
+  background: rgba(8, 12, 22, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sdg-progress-tick {
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.16);
+  transition: background 0.4s ease, width 0.4s ease;
+}
+
+.sdg-progress-tick.is-past {
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.sdg-progress-tick.is-active {
+  width: 20px;
+  height: 3px;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.sdg-progress-count {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.sdg-progress-current {
+  font-weight: 700;
+}
+
+.sdg-progress-final {
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--ink-dim);
+}
+
+/* ------------------------------------------------------------------
+   Ecosystem finale
+   ------------------------------------------------------------------ */
+
+.ecosystem {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.5s ease, visibility 0s linear 1.5s;
+  will-change: opacity;
+}
+
+.ecosystem.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1.5s ease;
+}
+
+.ecosystem-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.eco-wave {
+  stroke-dasharray: 3 2;
+  animation: eco-wave-flow 9s linear infinite;
+}
+
+@keyframes eco-wave-flow {
+  to { stroke-dashoffset: -50; }
+}
+
+.eco-stars {
+  animation: eco-twinkle 5s ease-in-out infinite alternate;
+}
+
+@keyframes eco-twinkle {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+
+.ecosystem-caption {
+  position: absolute;
+  left: clamp(24px, 7vw, 120px);
+  bottom: clamp(28px, 9vh, 90px);
+  max-width: 520px;
+  pointer-events: none;
+}
+
+.ecosystem.is-visible .ecosystem-caption {
+  animation: rise-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) both 0.7s;
+}
+
+.ecosystem-kicker {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #9fd0ea;
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+.ecosystem-title {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.4vw, 54px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  color: #eef6ff;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
+}
+
+.ecosystem-sub {
+  font-size: clamp(14px, 1.5vw, 17px);
+  font-weight: 300;
+  color: rgba(230, 240, 250, 0.82);
+  margin: 0;
+  max-width: 44ch;
+}
+
+/* ------------------------------------------------------------------
+   Scroll track (invisible; drives the journey + screen-reader flow)
+   ------------------------------------------------------------------ */
+
+.journey-track {
+  position: relative;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.track-intro {
+  height: 150vh;
+}
+
+.track-sdgs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.track-sdg {
+  height: 165vh;
+}
+
+.track-finale {
+  height: 230vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 7vh;
+}
+
+.finale-replay {
+  pointer-events: auto;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  background: rgba(10, 16, 28, 0.55);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 13px 28px;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.finale-replay:hover {
+  color: var(--ink);
+  border-color: rgba(122, 184, 255, 0.6);
+  background: rgba(16, 26, 44, 0.7);
+}
+
+/* ------------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
+  .sdg-panel {
+    width: min(380px, 44vw);
+  }
+}
+
+@media (max-width: 720px) {
+  .sdg-panel {
+    left: 5vw !important;
+    right: 5vw !important;
+    width: auto;
+    top: auto;
+    bottom: 11vh;
+  }
+
+  .sdg-panel-inner {
+    padding: 16px 18px 14px;
+  }
+
+  .sdg-panel-numeral {
+    font-size: 58px;
+    top: -10px;
+    right: 10px;
+  }
+
+  .sdg-panel-name {
+    font-size: 18px;
+  }
+
+  .sdg-panel-desc {
+    font-size: 13.5px;
+  }
+
+  .sdg-progress {
+    right: 14px;
+    top: 18px;
+    transform: none;
+  }
+
+  .sdg-progress-rail {
+    display: none;
+  }
+
+  .intro-inner {
+    transform: translateY(-8vh);
+  }
+
+  .intro-title {
+    font-size: clamp(34px, 11vw, 52px);
+  }
+
+  .ecosystem-caption {
+    left: 6vw;
+    right: 6vw;
+    bottom: 12vh;
+  }
+
+  .track-sdg {
+    height: 150vh;
+  }
+
+  .track-intro {
+    height: 135vh;
+  }
+}
+
+/* Safe-area padding for notched phones */
+@supports (padding: max(0px)) {
+  @media (max-width: 720px) {
+    .sdg-panel {
+      bottom: max(11vh, env(safe-area-inset-bottom, 0px) + 9vh);
+    }
+  }
+}
