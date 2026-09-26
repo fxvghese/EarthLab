@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-ink: #0a1410;
+  --color-ink-2: #0e1b16;
+  --color-panel: #101f1a;
+  --color-line: rgba(134, 239, 172, 0.1);
+  --color-sun: #f59e0b;
+  --color-sun-soft: #fbbf24;
+  --color-leaf: #34d399;
+  --color-leaf-soft: #6ee7b7;
+  --color-water: #38bdf8;
+  --color-mist: #cbd5c8;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-mist);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a1410;
+}
+::-webkit-scrollbar-thumb {
+  background: #1d3a2e;
+  border-radius: 8px;
+}
+
+.text-glow-leaf {
+  text-shadow: 0 0 24px rgba(52, 211, 153, 0.45);
+}
+.text-glow-sun {
+  text-shadow: 0 0 24px rgba(245, 158, 11, 0.4);
+}
+
+/* --- Back to main experience ------------------------------------------ */
+.game-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px 7px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(134, 239, 172, 0.22);
+  background: rgba(110, 231, 183, 0.07);
+  color: rgba(203, 213, 200, 0.9);
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.game-back-btn:hover {
+  background: rgba(110, 231, 183, 0.13);
+  border-color: rgba(134, 239, 172, 0.4);
+}
+.game-back-btn:active {
+  transform: scale(0.97);
+}
+.game-back-btn:focus-visible {
+  outline: 2px solid rgba(110, 231, 183, 0.7);
+  outline-offset: 2px;
+}
+.game-back-btn svg {
+  flex: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-back-btn {
+    transition: none;
+  }
+  .game-back-btn:active {
+    transform: none;
+  }
+}

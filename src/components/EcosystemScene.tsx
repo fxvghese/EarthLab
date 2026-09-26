@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import { CursorCard } from '@/components/ui/cursor-card'
 import { useEscapeKey } from '../hooks/useEscapeKey'
 import { useEcosystemPhase } from '../hooks/useEcosystemPhase'
@@ -12,6 +13,8 @@ import {
   type EcosystemElement,
   type EcosystemKind,
 } from '../data/ecosystem'
+import { CATEGORY_BY_KIND, CATEGORY_HASH, CATEGORY_NAME, type CategoryId } from '../data/sdgCategories'
+import { SdgIntroOverlay } from './SdgIntroOverlay'
 
 /** Small deterministic PRNG factory so the scene never reshuffles. */
 function makeRand(seed: number): () => number {
@@ -20,6 +23,23 @@ function makeRand(seed: number): () => number {
   return () => {
     s = (s * 16807) % 2147483647
     return (s - 1) / 2147483646
+  }
+}
+
+/**
+ * Element click → category SDG introduction. The overlay shows the category's
+ * connected SDGs, then the games for that category; launching a game from the
+ * overlay hands off to the existing build untouched.
+ */
+/** Moon → EarthLab: simple browser redirect, no router. */
+function openEarthLab(): void {
+  window.location.href = '/earthlab'
+}
+
+function moonKeyDown(e: React.KeyboardEvent): void {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    openEarthLab()
   }
 }
 
@@ -200,12 +220,34 @@ const THUMB_ART: Record<EcosystemKind, string> = {
  * A cinematic nighttime island shoreline in split above/below-water
  * perspective. Exactly 3 trees, 3 fish, 3 clouds and 2 solar arrays are
  * interactive: each object *is* the button (wrapped in `CursorCard` for the
- * cursor-following hover preview), and clicking it opens a small glass
- * information panel. All other artwork is decorative.
+ * cursor-following hover preview). Clicking an object opens its category's
+ * SDG introduction overlay — the bridge to that category's games. All other
+ * artwork is decorative.
  */
 export function EcosystemScene() {
   const inPhase = useEcosystemPhase()
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  /** Open category SDG introduction (fish → water, tree → land, …). */
+  const [introCategory, setIntroCategory] = useState<CategoryId | null>(null)
+  /** Deep-link stage: true → jump straight to the category's game selection. */
+  const [introShowGames, setIntroShowGames] = useState(false)
+
+  // Deep link: the ocean game's Back button returns to /#water-games, which
+  // reopens the Water overlay directly on its game-selection stage.
+  useEffect(() => {
+    const read = (): void => {
+      const hash = window.location.hash.replace(/^#/, '')
+      const match = (Object.keys(CATEGORY_HASH) as CategoryId[]).find((c) => CATEGORY_HASH[c] === hash)
+      if (match) {
+        setIntroCategory(match)
+        setIntroShowGames(true)
+        history.replaceState(null, '', window.location.pathname + window.location.search)
+      }
+    }
+    read()
+    window.addEventListener('hashchange', read)
+    return () => window.removeEventListener('hashchange', read)
+  }, [])
 
   // Whole-scene fitting: slice on wide screens, bottom-anchored meet on
   // narrow/portrait screens so every interactive element stays reachable.
@@ -225,7 +267,9 @@ export function EcosystemScene() {
   }, [])
 
   useEscapeKey(() => {
-    if (selectedId) {
+    if (introCategory) {
+      setIntroCategory(null)
+    } else if (selectedId) {
       setSelectedId(null)
     } else {
       window.scrollTo({
@@ -345,6 +389,9 @@ export function EcosystemScene() {
   const renderElement = (el: EcosystemElement): JSX.Element => {
     const halo = haloFor(el)
     const active = selectedId === el.id
+    // Every object opens its category's SDG introduction before any game.
+    const category: CategoryId = CATEGORY_BY_KIND[el.kind]
+    const aria = `Explore ${CATEGORY_NAME[category]} — ${el.hover}`
     return (
       <CursorCard key={el.id} image={thumbs[el.id]} description={el.hover} className="eco-card-anchor">
         <g
@@ -352,13 +399,17 @@ export function EcosystemScene() {
           tabIndex={0}
           className={'eco-el' + (active ? ' is-active' : '')}
           data-kind={el.kind}
-          aria-label={el.label}
+          aria-label={aria}
           aria-pressed={active}
-          onClick={() => setSelectedId((cur) => (cur === el.id ? null : el.id))}
+          onClick={() => {
+            setSelectedId((cur) => (cur === el.id ? null : el.id))
+            setIntroCategory(category)
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault()
               setSelectedId((cur) => (cur === el.id ? null : el.id))
+              setIntroCategory(category)
             }
           }}
           style={{ transformBox: 'view-box', transformOrigin: `${halo.cx}px ${halo.cy}px` }}
@@ -487,12 +538,8 @@ export function EcosystemScene() {
           ))}
         </g>
 
-        {/* moon */}
-        <circle cx="130" cy="18" r="16" fill="url(#eco-moonhalo)" />
-        <circle cx="130" cy="18" r="7.5" fill="#e9effb" />
-        <circle cx="127.6" cy="16.2" r="1.5" fill="#cdd8ea" opacity="0.55" />
-        <circle cx="132.4" cy="20.4" r="1.1" fill="#cdd8ea" opacity="0.45" />
-        <circle cx="131.8" cy="15.4" r="0.7" fill="#cdd8ea" opacity="0.4" />
+        {/* moon artwork is rendered last so it stays clickable above the
+            interactive objects — see the .eco-moon-btn group at the end. */}
 
         {/* interactive clouds */}
         {ECOSYSTEM_CLOUDS.map(renderElement)}
@@ -587,11 +634,24 @@ export function EcosystemScene() {
 
         {/* interactive fish */}
         {ECOSYSTEM_FISH.map(renderElement)}
+
+        {/* moon — clickable entry point to the EarthLab climate game.
+            Rendered LAST so it sits above every interactive object for hit
+            testing; the artwork itself is unchanged from the original. */}
+        <g className="eco-moon-btn" onClick={openEarthLab} onKeyDown={moonKeyDown} role="button" tabIndex={0} aria-label="EarthLab: Climate Control — open the climate game">
+          <title>EarthLab: Climate Control</title>
+          <circle className="eco-moon-halo" cx="130" cy="18" r="17.5" />
+          <circle cx="130" cy="18" r="16" fill="url(#eco-moonhalo)" />
+          <circle cx="130" cy="18" r="7.5" fill="#e9effb" />
+          <circle cx="127.6" cy="16.2" r="1.5" fill="#cdd8ea" opacity="0.55" />
+          <circle cx="132.4" cy="20.4" r="1.1" fill="#cdd8ea" opacity="0.45" />
+          <circle cx="131.8" cy="15.4" r="0.7" fill="#cdd8ea" opacity="0.4" />
+        </g>
       </svg>
 
       {/* discoverability hint — fades once an object is selected */}
-      <div className={'eco-hint' + (selected ? ' is-hidden' : '')} aria-hidden="true">
-        Click the trees, clouds, solar panels and fish
+      <div className={'eco-hint' + (selected || introCategory ? ' is-hidden' : '')} aria-hidden="true">
+        Click a tree, cloud, fish or solar panel to meet its Sustainable Development Goals
       </div>
 
       {/* glass info panel */}
@@ -605,6 +665,19 @@ export function EcosystemScene() {
           <p className="eco-panel-text">{selected.info}</p>
         </div>
       )}
+
+      {/* category → SDG introduction → game selection */}
+      <AnimatePresence>
+        {introCategory && (
+          <SdgIntroOverlay
+            intro={{ category: introCategory, showGames: introShowGames }}
+            onClose={() => {
+              setIntroCategory(null)
+              setIntroShowGames(false)
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

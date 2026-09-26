@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background-color: #05070d;
+  color: #f4f4f5;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(251, 146, 60, 0.35);
+}
+
+/* ---------- Custom climate slider (native input, fully styled) ---------- */
+
+.climate-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: grab;
+  outline: none;
+}
+.climate-range:active {
+  cursor: grabbing;
+}
+
+.climate-range::-webkit-slider-runnable-track {
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--fill-color, #34d399) 0%,
+    var(--fill-color, #34d399) var(--fill-pct, 4%),
+    rgba(255, 255, 255, 0.07) var(--fill-pct, 4%),
+    rgba(255, 255, 255, 0.07) 100%
+  );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.09),
+    inset 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+.climate-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  margin-top: -11px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.55), transparent 42%),
+    var(--fill-color, #34d399);
+  border: 3px solid rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 0 0 7px color-mix(in srgb, var(--fill-color, #34d399) 22%, transparent),
+    0 8px 22px rgba(0, 0, 0, 0.6);
+  transition: transform 0.15s ease;
+}
+.climate-range:hover::-webkit-slider-thumb {
+  transform: scale(1.06);
+}
+.climate-range:active::-webkit-slider-thumb {
+  transform: scale(1.14);
+}
+.climate-range:focus-visible::-webkit-slider-thumb {
+  box-shadow:
+    0 0 0 10px color-mix(in srgb, var(--fill-color, #34d399) 30%, transparent),
+    0 8px 22px rgba(0, 0, 0, 0.6);
+}
+
+.climate-range::-moz-range-track {
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.09);
+}
+.climate-range::-moz-range-progress {
+  height: 14px;
+  border-radius: 999px;
+  background: var(--fill-color, #34d399);
+}
+.climate-range::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--fill-color, #34d399);
+  border: 3px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.6);
+}
+
+/* thin dark scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* --- Back to main experience ------------------------------------------ */
+.game-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px 7px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(244, 244, 245, 0.9);
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.game-back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+.game-back-btn:active {
+  transform: scale(0.97);
+}
+.game-back-btn:focus-visible {
+  outline: 2px solid rgba(251, 146, 60, 0.7);
+  outline-offset: 2px;
+}
+.game-back-btn svg {
+  flex: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-back-btn {
+    transition: none;
+  }
+  .game-back-btn:active {
+    transform: none;
+  }
+}

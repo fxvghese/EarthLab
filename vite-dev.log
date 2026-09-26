@@ -2,25 +2,43 @@
 > sdgs-in-the-classroom@0.1.0 dev
 > vite
 
+Port 5173 is in use, trying another one...
 
-  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m349[22m[2m[0m ms[22m
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m541[22m[2m[0m ms[22m
 
-  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
-  [32m➜[39m  [1mNetwork[22m: [36mhttp://10.61.176.254:[1m5173[22m/[39m
-[2m9:03:15 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/tailwind.css, /src/components/EcosystemScene.tsx[22m
-[2m9:04:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
-[2m9:05:35 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/tailwind.css, /src/components/EcosystemScene.tsx[22m
-[2m9:05:35 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
-[2m9:10:17 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
-[2m9:24:18 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
-[2m9:33:17 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/journey.css, /src/styles/tailwind.css[22m
-[2m9:45:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/tailwind.css[22m
-[2m9:45:08 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
-[2m9:54:27 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
-[2m10:08:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtsconfig.app.tsbuildinfo[22m
-[2m10:08:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtsconfig.node.tsbuildinfo[22m
-[2m10:17:36 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/EcosystemScene.tsx, /src/styles/tailwind.css[22m
-[2m10:18:41 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/tailwind.css, /src/components/EcosystemScene.tsx[22m
-[2m10:18:41 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/styles/journey.css, /src/styles/tailwind.css[22m
-[2m10:20:16 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtsconfig.app.tsbuildinfo[22m
-[2m10:20:17 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtsconfig.node.tsbuildinfo[22m
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5174[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://10.30.220.179:[1m5174[22m/[39m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Climate G1/climate.html[22m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Climate G1/index.html[22m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m changed tsconfig file detected: C:\Users\Felix\Downloads\EarthLab\EL Reso\Climate G1\tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Land G1/index.html[22m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m changed tsconfig file detected: C:\Users\Felix\Downloads\EarthLab\EL Reso\Land G1\tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Energy S1/game.html[22m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Energy S1/index.html[22m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m changed tsconfig file detected: C:\Users\Felix\Downloads\EarthLab\EL Reso\Energy S1\tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Climate G1/dist/climate.html[22m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Climate G1/dist/index.html[22m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Energy S1/dist/game.html[22m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Energy S1/dist/index.html[22m
+[2m1:10:27 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Land G1/dist/index.html[22m
+[2m1:38:23 AM[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[2m1:38:23 AM[22m [36m[1m[vite][22m[39m server restarted.
+[2m1:45:46 AM[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+Re-optimizing dependencies because vite config has changed
+[2m1:45:46 AM[22m [36m[1m[vite][22m[39m server restarted.
+[2m1:49:56 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Land G1/dist/index.html[22m
+[2m1:49:57 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Land G1/dist/index.html[22m
+[2m1:50:01 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Energy S1/dist/game.html[22m
+[2m1:50:01 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Energy S1/dist/index.html[22m
+[2m1:50:02 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Energy S1/dist/index.html[22m
+[2m1:50:02 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Energy S1/dist/game.html[22m
+[2m1:50:08 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Climate G1/dist/climate.html[22m
+[2m1:50:08 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Climate G1/dist/index.html[22m
+[2m1:50:08 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Climate G1/dist/climate.html[22m
+[2m1:50:08 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Climate G1/dist/index.html[22m
+[2m1:56:33 AM[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[2m1:56:33 AM[22m [36m[1m[vite][22m[39m server restarted.
+[2m1:56:53 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Land G1/dist/index.html[22m
+[2m1:56:54 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mEL Reso/Land G1/dist/index.html[22m
+[2m2:34:54 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.texcheck/index.html[22m
+[2m2:37:06 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2m.texcheck/index.html[22m

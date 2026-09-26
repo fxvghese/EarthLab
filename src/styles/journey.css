@@ -14,6 +14,7 @@
 .earth-experience {
   position: absolute;
   inset: 0;
+  pointer-events: none; /* the planet is a backdrop; the ecosystem layer above receives clicks */
 }
 
 .scene-canvas {
@@ -777,5 +778,566 @@
 
   .eco-panel-text {
     font-size: 12.5px;
+  }
+}
+
+/* --- moon → EarthLab entry button ----------------------------------
+   Pure overlay interaction: the moon artwork is untouched. The halo is
+   invisible at rest and only breathes on hover/focus. */
+
+.eco-moon-btn {
+  cursor: pointer;
+  outline: none;
+}
+
+.eco-moon-btn .eco-moon-halo {
+  fill: rgba(160, 200, 255, 0);
+  stroke: rgba(170, 210, 255, 0);
+  stroke-width: 1.2;
+  transition: fill 0.45s ease, stroke 0.45s ease;
+}
+
+.eco-moon-btn:hover .eco-moon-halo,
+.eco-moon-btn:focus-visible .eco-moon-halo {
+  fill: rgba(160, 200, 255, 0.07);
+  stroke: rgba(170, 210, 255, 0.35);
+}
+
+.eco-moon-btn:focus-visible .eco-moon-halo {
+  stroke: rgba(170, 210, 255, 0.65);
+  stroke-dasharray: 3 2.4;
+}
+
+.eco-moon-btn:active .eco-moon-halo {
+  fill: rgba(160, 200, 255, 0.12);
+}
+
+/* --- shared Back button (every game → main site) --------------------
+   Rendered by each game page in its own header. Self-contained styles so
+   it looks identical across the EarthLab and `EL Reso` game bundles and
+   matches the site's dark glass aesthetic. */
+
+.game-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px 7px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(235, 242, 255, 0.88);
+  font-family: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.game-back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.game-back-btn:active {
+  transform: scale(0.97);
+}
+
+.game-back-btn:focus-visible {
+  outline: 2px solid rgba(140, 190, 255, 0.75);
+  outline-offset: 2px;
+}
+
+.game-back-btn svg {
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-back-btn {
+    transition: none;
+  }
+
+  .game-back-btn:active {
+    transform: none;
+  }
+}
+
+/* ==================================================================
+   SDG introduction overlay — the educational bridge between the
+   ecosystem finale and the games. Glassy, night-palette, immersive.
+   ================================================================== */
+
+.sdg-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 3vh, 32px) clamp(14px, 4vw, 48px);
+}
+
+.sdg-intro-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1100px 640px at 50% 38%, rgba(20, 48, 86, 0.5), rgba(3, 6, 12, 0.82) 70%),
+    rgba(2, 4, 9, 0.6);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+}
+
+.sdg-intro-panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(280px, 460px) minmax(320px, 480px);
+  gap: clamp(20px, 3.5vw, 44px);
+  width: min(960px, 100%);
+  max-height: min(92vh, 780px);
+  padding: clamp(22px, 4vh, 40px) clamp(22px, 3.5vw, 44px);
+  background: linear-gradient(155deg, rgba(13, 22, 38, 0.88), rgba(6, 10, 19, 0.92));
+  border: 1px solid rgba(158, 200, 255, 0.16);
+  border-radius: 22px;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(190, 220, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+
+/* category hero (left column) */
+.sdg-intro-hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.sdg-intro-kicker {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(190, 214, 240, 0.6);
+}
+
+.sdg-intro-title {
+  margin: 8px 0 0;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-size: clamp(34px, 5vw, 54px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+  color: #eef4ff;
+  text-shadow: 0 0 34px rgba(120, 170, 255, 0.35);
+}
+
+.sdg-intro-focus {
+  margin: 12px 0 0;
+  max-width: 34ch;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: rgba(190, 214, 240, 0.78);
+}
+
+.sdg-intro-art {
+  margin: clamp(14px, 2.5vh, 26px) 0 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(158, 200, 255, 0.12);
+  background: rgba(4, 8, 15, 0.55);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
+}
+
+.sdg-art {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sdg-intro-whisper {
+  margin: 12px 0 2px;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(140, 170, 205, 0.45);
+}
+
+/* SDG list (right column) */
+.sdg-intro-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.sdg-intro-sub {
+  margin: 0 0 14px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(190, 214, 240, 0.62);
+}
+
+.sdg-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sdg-row {
+  display: grid;
+  grid-template-columns: 34px 30px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px 11px 11px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(158, 200, 255, 0.1);
+  border-radius: 14px;
+}
+
+.sdg-row-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.sdg-ico {
+  width: 26px;
+  height: 26px;
+}
+
+.sdg-row-text h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #eef4ff;
+}
+
+.sdg-row-text p {
+  margin: 3px 0 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: rgba(178, 200, 226, 0.72);
+}
+
+.sdg-intro-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  align-self: flex-start;
+  margin: 18px 0 0;
+  padding: 11px 20px 11px 17px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(158, 200, 255, 0.14);
+  color: #eaf2ff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.sdg-intro-continue:hover {
+  background: rgba(158, 200, 255, 0.24);
+  transform: translateX(2px);
+}
+
+.sdg-intro-continue:active {
+  transform: scale(0.98);
+}
+
+.sdg-intro-continue:focus-visible,
+.sdg-intro-close:focus-visible,
+.sdg-games-back:focus-visible,
+.sdg-game-card:focus-visible {
+  outline: 2px solid rgba(140, 190, 255, 0.75);
+  outline-offset: 2px;
+}
+
+.sdg-intro-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(238, 244, 255, 0.85);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.sdg-intro-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* stage 2 — game selection layer (sits above the SDG panel, own veil) */
+.sdg-games {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(18px, 4vh, 40px);
+  background:
+    radial-gradient(1100px 640px at 50% 38%, rgba(20, 48, 86, 0.5), rgba(3, 6, 12, 0.82) 70%),
+    rgba(2, 4, 9, 0.6);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+}
+
+.sdg-intro.show-games .sdg-intro-panel {
+  visibility: hidden;
+}
+
+.sdg-games-back {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px 7px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(238, 244, 255, 0.9);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.sdg-games-back:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.sdg-games-title {
+  margin: 0;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-size: clamp(24px, 3.4vw, 34px);
+  font-weight: 700;
+  color: #eef4ff;
+  text-align: center;
+}
+
+.sdg-games-sub {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: rgba(178, 200, 226, 0.66);
+  text-align: center;
+}
+
+.sdg-games-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: clamp(18px, 3.5vh, 30px);
+}
+
+.sdg-game-card {
+  display: flex;
+  flex-direction: column;
+  width: min(280px, 82vw);
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid rgba(158, 200, 255, 0.14);
+  border-radius: 16px;
+  background: linear-gradient(160deg, rgba(18, 30, 50, 0.85), rgba(8, 13, 23, 0.9));
+  cursor: pointer;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.sdg-game-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(158, 200, 255, 0.4);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+}
+
+.sdg-game-card:active {
+  transform: scale(0.98);
+}
+
+.sdg-game-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96px;
+  background: rgba(4, 8, 15, 0.6);
+  border-bottom: 1px solid rgba(158, 200, 255, 0.08);
+}
+
+.sdg-game-art svg {
+  width: 74%;
+  height: auto;
+}
+
+.sdg-game-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 13px 16px 14px;
+}
+
+.sdg-game-title {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #eef4ff;
+}
+
+.sdg-game-desc {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: rgba(178, 200, 226, 0.72);
+}
+
+.sdg-game-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(158, 200, 255, 0.85);
+}
+
+/* gentle ambient motion for the hero art */
+.sdg-art-spark {
+  animation: sdg-twinkle 3.2s ease-in-out infinite alternate;
+}
+.sdg-art-float {
+  animation: sdg-float 5.5s ease-in-out infinite alternate;
+}
+.sdg-art-swim {
+  animation: sdg-swim 6s ease-in-out infinite alternate;
+}
+.sdg-art-swim2 {
+  animation: sdg-swim 7.5s ease-in-out infinite alternate-reverse;
+}
+.sdg-art-glow {
+  animation: sdg-twinkle 2.4s ease-in-out infinite alternate;
+}
+.sdg-art-glow2 {
+  animation: sdg-twinkle 3.1s ease-in-out infinite alternate-reverse;
+}
+.sdg-art-panel {
+  animation: sdg-float 6.5s ease-in-out infinite alternate;
+}
+.sdg-art-bolt {
+  animation: sdg-twinkle 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes sdg-twinkle {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sdg-float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes sdg-swim {
+  from {
+    transform: translateX(-4px);
+  }
+  to {
+    transform: translateX(6px);
+  }
+}
+
+/* responsive: stack on narrow screens */
+@media (max-width: 760px) {
+  .sdg-intro-panel {
+    grid-template-columns: 1fr;
+    max-height: 94vh;
+    overflow-y: auto;
+    gap: 18px;
+  }
+
+  .sdg-intro-art {
+    max-width: 380px;
+  }
+
+  .sdg-intro-whisper {
+    display: none;
+  }
+
+  .sdg-row {
+    grid-template-columns: 30px 26px 1fr;
+  }
+
+  .sdg-row-num {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .sdg-ico {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sdg-art-spark,
+  .sdg-art-float,
+  .sdg-art-swim,
+  .sdg-art-swim2,
+  .sdg-art-glow,
+  .sdg-art-glow2,
+  .sdg-art-panel,
+  .sdg-art-bolt {
+    animation: none;
+  }
+
+  .sdg-intro-continue,
+  .sdg-game-card {
+    transition: none;
   }
 }

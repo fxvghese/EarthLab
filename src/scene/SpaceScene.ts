@@ -8,13 +8,14 @@
  *
  * All motion respects the `reducedMotion` flag: idle rotation slows, the
  * starfield stops pulsing and pointer parallax is damped.
- */
-
-import {
+ */import {
   AdditiveBlending,
+  AmbientLight,
+  Box3,
   BufferAttribute,
   BufferGeometry,
   Color,
+  DirectionalLight,
   Group,
   Mesh,
   MeshBasicMaterial,
@@ -28,6 +29,7 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { createEarthMaterials, type EarthMaterialSet } from './earthShaders'
 import {
   clamp01,
@@ -104,6 +106,48 @@ export function createSpaceScene({ canvas, reducedMotion }: SpaceSceneOptions): 
 
   const clouds = new Mesh(new SphereGeometry(1.357, seg, Math.round(seg * 0.72)), materials.clouds)
   earth.add(clouds)
+
+  // ------------------------------------------------------------------
+  // Textured Earth model (earth.glb) — replaces the procedural planet
+  // once loaded. The procedural planet + clouds above stay visible until
+  // then (and permanently if the model fails), so there is never a blank
+  // frame. The procedural atmosphere shell is always kept: the GLB ships  // no atmosphere, and the rim glow is part of the scene's look.
+  // ------------------------------------------------------------------
+  new GLTFLoader().load(
+    new URL('../assets/earth.glb', import.meta.url).href,
+    (gltf) => {
+      const model = gltf.scene
+      // Normalise: centre at the origin and match the procedural planet's
+      // 2.7-unit diameter, so camera path, orbit and markers stay aligned.
+      const box = new Box3().setFromObject(model)
+      const center = box.getCenter(new Vector3())
+      const size = box.getSize(new Vector3())
+      const maxDim = Math.max(size.x, size.y, size.z) || 1
+      model.position.set(-center.x, -center.y, -center.z)
+      const holder = new Group()
+      holder.add(model)
+      holder.scale.setScalar(2.7 / maxDim)
+      earth.add(holder)
+      planet.visible = false
+      clouds.visible = false
+    },
+    undefined,
+    (err) => {
+      console.warn('[scene] earth.glb failed to load — using procedural Earth.', err)
+    },
+  )
+
+  // Lights for the GLB's PBR material (the shader materials are self-lit
+  // and MeshBasic materials ignore lights). The sun tracks the same light  // direction the procedural shaders use, so day/night stays consistent.
+  const sunLight = new DirectionalLight(0xfff6e8, 2.2)
+  scene.add(sunLight)
+  // Camera-following fill: the sun sweeps a full circle roughly every 13
+  // minutes, so without a fill the visible face would sit in darkness half
+  // of the time. The fill keeps the textured side readable at every phase.
+  const fillLight = new DirectionalLight(0xbdd4ff, 0.75)
+  scene.add(fillLight)
+  const ambientLight = new AmbientLight(0x26364f, 0.5)
+  scene.add(ambientLight)
 
   const atmo = new Mesh(new SphereGeometry(1.43, 48, 36), materials.atmosphere)
   earth.add(atmo)
@@ -286,6 +330,8 @@ export function createSpaceScene({ canvas, reducedMotion }: SpaceSceneOptions): 
     lightDir.set(1, 0.35, 0.5).normalize().applyAxisAngle(UP, time * 0.008 * (reducedMotion ? 0.3 : 1)).normalize()
     materials.clouds.uniforms.uTime.value = time
     materials.clouds.uniforms.uLightDir.value.copy(materials.planet.uniforms.uLightDir.value)
+    sunLight.position.copy(materials.planet.uniforms.uLightDir.value as Vector3).multiplyScalar(10)
+    fillLight.position.copy(camera.position)
     for (const m of [materials.planet, materials.clouds, materials.atmosphere]) {
       ;(m.uniforms.uCameraPos.value as Vector3).copy(camera.position)
     }

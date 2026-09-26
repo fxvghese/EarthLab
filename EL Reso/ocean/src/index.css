@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --color-abyss-950: #010a14;
+  --color-abyss-900: #02121f;
+  --color-abyss-800: #04263c;
+  --color-abyss-700: #063a58;
+  --color-abyss-600: #0a5378;
+  --color-cyan-glow: #35e0d2;
+  --color-teal-soft: #6ff2e4;
+  --color-seafoam: #57e6a4;
+  --color-coral-warn: #ff9d6b;
+  --color-plastic-warn: #ffd166;
+  --font-mono-code: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: var(--color-abyss-950);
+  color: #d6f5f2;
+  overflow: hidden;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(53, 224, 210, 0.35) transparent;
+}
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(53, 224, 210, 0.3);
+  border-radius: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@utility glass-panel {
+  background: linear-gradient(160deg, rgba(6, 42, 66, 0.72), rgba(2, 18, 31, 0.82));
+  border: 1px solid rgba(53, 224, 210, 0.16);
+  box-shadow:
+    0 0 0 1px rgba(1, 10, 20, 0.6),
+    0 18px 42px -18px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(140, 240, 230, 0.07);
+  backdrop-filter: blur(14px);
+  border-radius: 14px;
+}
+
+@utility glass-inset {
+  background: rgba(1, 14, 24, 0.55);
+  border: 1px solid rgba(53, 224, 210, 0.1);
+  border-radius: 10px;
+}
+
+@utility text-glow-cyan {
+  text-shadow: 0 0 12px rgba(53, 224, 210, 0.55);
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.85); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.auv-ping::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 1px solid rgba(53, 224, 210, 0.7);
+  animation: pulse-ring 1.6s ease-out infinite;
+}
+
+/* --- Back to Water game selection ------------------------------------- */
+.ocean-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px 7px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(53, 224, 210, 0.28);
+  background: rgba(2, 18, 31, 0.72);
+  color: #6ff2e4;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.ocean-back-btn:hover {
+  background: rgba(6, 58, 88, 0.72);
+  border-color: rgba(53, 224, 210, 0.55);
+}
+.ocean-back-btn:active {
+  transform: scale(0.97);
+}
+.ocean-back-btn:focus-visible {
+  outline: 2px solid rgba(53, 224, 210, 0.75);
+  outline-offset: 2px;
+}
+.ocean-back-btn svg {
+  flex: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ocean-back-btn {
+    transition: none;
+  }
+  .ocean-back-btn:active {
+    transform: none;
+  }
+}

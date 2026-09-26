@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" width="480" height="280">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1224"/>
+      <stop offset="0.7" stop-color="#251a3a"/>
+      <stop offset="1" stop-color="#7a3a14"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a7bd4"/>
+      <stop offset="1" stop-color="#0c3a72"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffb35e" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ffb35e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="480" height="280" fill="url(#sky)"/>
+  <circle cx="118" cy="88" r="60" fill="url(#glow)"/>
+  <circle cx="118" cy="88" r="26" fill="#ffbd72"/>
+
+  <polygon points="250,190 330,66 410,190" fill="#3a4661"/>
+  <polygon points="312,86 330,66 348,86 340,94 330,80 320,96" fill="#e8eef2"/>
+  <polygon points="330,190 400,96 470,190" fill="#2c3550"/>
+
+  <rect y="188" width="480" height="92" fill="url(#sea)"/>
+  <path d="M0 196 Q 40 188 80 196 T 160 196 T 240 196 T 320 196 T 400 196 T 480 196 V210 H0 Z" fill="#5fb0ff" opacity="0.35"/>
+  <path d="M0 214 Q 48 206 96 214 T 192 214 T 288 214 T 384 214 T 480 214 V226 H0 Z" fill="#5fb0ff" opacity="0.18"/>
+
+  <path d="M0 280 L0 226 Q 60 214 120 222 T 240 232 L 240 280 Z" fill="#1c4a2e"/>
+  <rect x="34" y="196" width="14" height="22" rx="2" fill="#39414f"/>
+  <rect x="52" y="188" width="12" height="30" rx="2" fill="#39414f"/>
+  <rect x="40" y="202" width="3" height="3" fill="#ffd489"/>
+  <rect x="56" y="196" width="3" height="3" fill="#ffd489"/>
+
+  <g stroke="#2f8f46" stroke-width="3" stroke-linecap="round">
+    <line x1="150" y1="234" x2="150" y2="222"/>
+    <line x1="164" y1="238" x2="164" y2="228"/>
+    <line x1="178" y1="234" x2="178" y2="224"/>
+    <line x1="192" y1="240" x2="192" y2="230"/>
+    <line x1="206" y1="236" x2="206" y2="227"/>
+  </g>
+</svg>
