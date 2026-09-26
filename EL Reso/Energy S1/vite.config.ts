@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const r = (p: string) => resolve(fileURLToPath(new URL(".", import.meta.url)), p);
 
 export default defineConfig({
+  base: "./",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: { "@": r("src") },
